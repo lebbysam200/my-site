@@ -115,6 +115,14 @@ class QuestionIndexDetailTests(TestCase):
          response = self.client.get(reverse('polls:detail',args=(future_question.id,)))
          self.assertEqual(response.status_code, 404)
 
+    def test_detail_view_with_a_current_question(self):
+         """
+         The site should be able to display the detail view of a current question
+         """
+         current_question = create_question(question_text='Current question.',days=0)
+         response = self.client.get(reverse('polls:detail',args=(current_question.id,)))
+         self.assertEqual(response.status_code, 200)
+
     def test_detail_view_with_a_past_question(self):
         """
         The detail view of a question with a pub_date in the past should
@@ -137,7 +145,7 @@ class QuestionResultsTests(TestCase):
          response = self.client.get(reverse('polls:detail',args=(future_question.id,)))
          self.assertEqual(response.status_code, 404)
     
-    def test_detail_view_with_a_past_question(self):
+    def test_result_view_with_a_past_question(self):
          """
          The detail view of a question with a pub_date in the past should
          display the question's text.
@@ -149,3 +157,10 @@ class QuestionResultsTests(TestCase):
          self.assertContains(response, past_question.question_text,
                             status_code=200)
 
+    def test_result_view_with_a_current_question(self):
+         """
+         The site should be able to display the results of a current question
+         """
+         current_question = create_question(question_text='Current question.',days=0)
+         response = self.client.get(reverse('polls:detail',args=(current_question.id,)))
+         self.assertEqual(response.status_code, 200)
