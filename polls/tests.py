@@ -104,6 +104,7 @@ class QuestionViewTests(TestCase):
             response.context['latest_question_list'],
             ['<Question: Past question 2.>', '<Question: Past question 1.>']
         )
+     
 
 class QuestionIndexDetailTests(TestCase):
     def test_detail_view_with_a_future_question(self):
